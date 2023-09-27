@@ -1,0 +1,52 @@
+package com.example.gm;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+
+public class gameActivity extends AppCompatActivity {
+
+    private EditText editTextTextPersonName3;
+    private EditText editTextTextPersonName4;
+    private Button button;
+    private ListView view;
+    private ArrayList<String> discList;
+    private ArrayAdapter<String> discAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
+
+        editTextTextPersonName3 = findViewById(R.id.editTextTextPersonName3);
+        editTextTextPersonName4 = findViewById(R.id.editTextTextPersonName4);
+        button = findViewById(R.id.button);
+        view = findViewById(R.id.view);
+
+        discList = new ArrayList<>();
+        discAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, discList);
+        view.setAdapter(discAdapter);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String gameTitle =  editTextTextPersonName3.getText().toString();
+                String discNumber = editTextTextPersonName4.getText().toString();
+
+                String disc = gameTitle + " - Disc " + discNumber;
+                discList.add(disc);
+                discAdapter.notifyDataSetChanged();
+
+                editTextTextPersonName3.setText("");
+                editTextTextPersonName4.setText("");
+            }
+        });
+    }
+}
